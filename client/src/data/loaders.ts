@@ -43,5 +43,5 @@ export async function getHomePage(){
 
     url.search = homePageQuery
 
-    return await fetchAPI(url.href, {method: "GET"})
+    return fetchAPI(url.href, {method: "GET"})
 }
