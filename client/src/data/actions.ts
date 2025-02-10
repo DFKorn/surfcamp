@@ -1,5 +1,6 @@
 "use server"
 import {z} from 'zod'
+import { subscribeService } from './services';
 
 const subscribeSchema = z.object({
     email: z.string().email({
@@ -27,6 +28,35 @@ export async function subscribeAction(prevState: any, formData: FormData) {
         };
     }
 
-    console.log(email, "Our email input from form")
+    const responseData = await subscribeService(validatedFields.data.email);
+
+    if(!responseData){
+        return{
+            ...prevState,
+            strapiErrors: null,
+            zodErrors: null,
+            errorMessage: 'Ops! Something went wrong. Please try again.'
+        }
+    }
+
+    if(responseData.error){
+        return{
+            ...prevState,
+            strapiErrors: responseData.error,
+            zodErrors: null,
+            errorMessage: 'Failed to Subscribe.'
+        }
+    }
+
+    
+    return{
+        ...prevState,
+        strapiErrors: null,
+        zodErrors: null,
+        errorMessage: null,
+        successMessage: 'Succsessfully Subscribed!'
+    }
+ 
+    //console.log(email, "email input from form")
   }
   
