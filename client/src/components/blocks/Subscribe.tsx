@@ -1,5 +1,14 @@
 "use client";
+import { subscribeAction } from "@/data/actions";
 import type { SubscribeProps } from "@/types";
+import { useActionState } from "react";
+
+const INITIAL_STATE = {
+  zodErrors: null,
+  strapiErrors: null,
+  errorMessage: null,
+  successMessage: null,
+};
 
 export function Subscribe({
   headline,
@@ -7,18 +16,28 @@ export function Subscribe({
   placeholder,
   buttonText,
 }: Readonly<SubscribeProps>) {
+
+  const [formState, formAction] = useActionState(
+    subscribeAction,
+    INITIAL_STATE
+  );
+
+  console.log(formState, 'this is form state coming from useActionState')
+  const zodErrors = formState?.zodErrors?.email;
+
   return (
     <section className="newsletter container">
       <div className="newsletter__info">
         <h4>{headline}</h4>
         <p className="copy">{content}</p>
       </div>
-      <form className="newsletter__form">
+      <form className="newsletter__form" action={formAction}>
         <input
           name="email"
-          type="email"
-          placeholder={placeholder}
-          className={`newsletter__email`}
+          // type="email"
+          type="text"
+          placeholder={zodErrors || placeholder}
+          className={`newsletter__email ${zodErrors ? 'newsletter__email--error' : ''}`}
         />
         <button
           type="submit"
