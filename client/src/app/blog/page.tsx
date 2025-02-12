@@ -1,8 +1,8 @@
 import { getPageBySlug } from "@/data/loaders";
 import { notFound } from "next/navigation";
 import { BlockRenderer } from "@/components/BlockRenderer";
-import { Card, type CardProps } from "@/components/Card";
 import { ContentList } from "@/components/ContentLIst";
+import { BlogCard } from "@/components/BlogCard";
 
 async function loader(slug: string) {
   const { data } = await getPageBySlug('blog');
@@ -14,7 +14,7 @@ interface PageProps {
   params: Promise<{ slug: string }>
 }
 
-const BlogCard = (props: Readonly<CardProps>) => <Card {...props} basePath="blog" />;
+
 
 
 
