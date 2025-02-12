@@ -1,5 +1,6 @@
 import { ArticleProps } from "@/types";
 import { getContent } from "@/data/loaders";
+import { Search } from "./Search";
 
 interface ContentListProps {
   headline: string;
@@ -8,10 +9,11 @@ interface ContentListProps {
   featured?: boolean;
   component: React.ComponentType<ArticleProps & { basePath: string }>;
   headlineAlignment?: "center" | "right" | "left";
+  showSearch?: boolean,
 }
 
-async function loader(path: string, featured?: boolean) {
-  const { data, meta } = await getContent(path, featured);
+async function loader(path: string, featured?: boolean, query?: string) {
+  const { data, meta } = await getContent(path, featured, query);
   return {
     articles: (data as ArticleProps[]) || [],
   };
@@ -23,8 +25,10 @@ export async function ContentList({
   featured,
   component,
   headlineAlignment,
+  showSearch,
+  query,
 }: Readonly<ContentListProps>) {
-  const { articles } = await loader(path, featured);
+  const { articles } = await loader(path, featured, query);
   const Component = component;
   //console.log('--------Articles-------', articles)
   return (
@@ -32,6 +36,7 @@ export async function ContentList({
       <h3 className={`content-items__headline ${headlineAlignment ?? ""}`}>
         {headline || "Featured Articles"}
       </h3>
+      {showSearch && <Search/>}
       <div className="content-items__container--card">
         {articles.map((article) => (
           <Component key={article.documentId} {...article} basePath={path} />
