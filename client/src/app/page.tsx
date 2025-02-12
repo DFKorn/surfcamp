@@ -22,9 +22,10 @@ export default async function HomeRout() {
       <BlockRenderer blocks={blocks} />
       <div className="container">
         <ContentList
-            headline="Check out our latest articles"
+            headline="Featured Articles"
             path="/api/articles"
             component={BlogCard}
+            featured
         />
       </div>
     </div>
