@@ -5,7 +5,7 @@ import { ContentList } from "@/components/ContentLIst";
 import { BlogCard } from "@/components/BlogCard";
 
 async function loader(slug: string) {
-  const { data } = await getPageBySlug('blog');
+  const { data } = await getPageBySlug(slug);
   if (data.length === 0) notFound();
   return { blocks: data[0]?.blocks };
 }
@@ -15,12 +15,8 @@ interface PageProps {
 }
 
 
-
-
-
-export default async function BlogPageRoute({ params }: PageProps) {
-  const slug = (await params).slug;
-  const { blocks } = await loader(slug);
+export default async function BlogRoute({ params }: PageProps) {
+  const { blocks } = await loader('blog');
   return (
     <div className="blog-page">
         <BlockRenderer blocks={blocks} />;
