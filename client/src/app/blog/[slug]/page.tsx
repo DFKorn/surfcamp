@@ -5,6 +5,8 @@ import { getContentBySlug } from "@/data/loaders";
 import { HeroSection } from "@/components/blocks/HeroSection";
 import { BlockRenderer } from "@/components/BlockRenderer";
 import Link from "next/link";
+import { CardProps, Card } from "@/components/Card";
+import { ContentList } from "@/components/ContentLIst";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -48,6 +50,10 @@ function ArticleOverview({
     </div>
   );
 }
+
+
+const BlogCard = (props: Readonly<CardProps>) => <Card {...props} basePath="blog" />;
+
 export default async function SingleBlogRoute({ params }: PageProps) {
   const slug = (await params).slug;
   const { article, blocks } = await loader(slug);
@@ -74,6 +80,13 @@ export default async function SingleBlogRoute({ params }: PageProps) {
       <div className="container">
         <ArticleOverview headline={title} description={description} tableOfContent={tableOfContent}/>
         <BlockRenderer blocks={blocks}/>
+        <ContentList
+          headline="Featured Articles"
+          path="/api/articles"
+          component={BlogCard}
+          featured={true}
+          headlineAlignment="center"
+        />
       </div>
     </div>
   );
