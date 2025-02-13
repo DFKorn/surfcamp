@@ -26,11 +26,12 @@ export interface BlocksFullImage extends Struct.ComponentSchema {
 export interface BlocksHeading extends Struct.ComponentSchema {
   collectionName: 'components_blocks_headings';
   info: {
+    description: '';
     displayName: 'Heading';
   };
   attributes: {
     heading: Schema.Attribute.String;
-    linkid: Schema.Attribute.String;
+    linkId: Schema.Attribute.String;
   };
 }
 
