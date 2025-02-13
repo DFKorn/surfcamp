@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { formatDate } from "@/utils/format-date";
 import { getContentBySlug } from "@/data/loaders";
 import { HeroSection } from "@/components/blocks/HeroSection";
+import { BlockRenderer } from "@/components/BlockRenderer";
+import Link from "next/link";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -18,11 +20,13 @@ async function loader(slug: string) {
 interface ArticleOverviewProps {
   headline: string;
   description: string;
+  tableOfContent: {heading:string, linkId: string}[]
 }
 
 function ArticleOverview({
   headline,
   description,
+  tableOfContent
 }: Readonly<ArticleOverviewProps>) {
   return (
     <div className="article-overview">
@@ -30,6 +34,17 @@ function ArticleOverview({
         <h3 className="article-overview__headline">{headline}</h3>
         <p className="article-overview__description">{description}</p>
       </div>
+      {tableOfContent && (
+        <ul className="article-overview__contents">
+          {tableOfContent.map((item, index) => (
+            <li key={index}>
+              <Link href={`#${item.linkId}`} className="article-overview__link">
+                {index + 1}. {item.heading}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
@@ -38,7 +53,12 @@ export default async function SingleBlogRoute({ params }: PageProps) {
   const { article, blocks } = await loader(slug);
   const { title, author, publishedAt, description, image } = article;
 
-  console.dir(blocks, {depth: null})
+  //console.dir(blocks, {depth: null})
+
+  const tableOfContent = blocks?.filter(
+    (block: Block) => block.__component === "blocks.heading"
+  );
+  console.log(tableOfContent)
 
   return (
     <div>
@@ -52,7 +72,8 @@ export default async function SingleBlogRoute({ params }: PageProps) {
         darken={true}
       />
       <div className="container">
-        <ArticleOverview headline={title} description={description}/>
+        <ArticleOverview headline={title} description={description} tableOfContent={tableOfContent}/>
+        <BlockRenderer blocks={blocks}/>
       </div>
     </div>
   );
