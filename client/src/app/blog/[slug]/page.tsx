@@ -64,7 +64,7 @@ export default async function SingleBlogRoute({ params }: PageProps) {
   const tableOfContent = blocks?.filter(
     (block: Block) => block.__component === "blocks.heading"
   );
-  console.log(tableOfContent)
+  //console.log(tableOfContent)
 
   return (
     <div>
