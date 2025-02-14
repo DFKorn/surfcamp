@@ -44,6 +44,12 @@
         "blocks.heading",
         "blocks.paragraph"
       ]
+    },
+    "eventSignups": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::event-signup.event-signup",
+      "mappedBy": "event"
     }
   }
 }
