@@ -11,6 +11,7 @@
     "strapi": "strapi"
   },
   "dependencies": {
+    "@strapi/pack-up": "^5.1.0",
     "@strapi/plugin-cloud": "5.9.0",
     "@strapi/plugin-users-permissions": "5.9.0",
     "@strapi/provider-upload-cloudinary": "^5.10.2",
@@ -34,5 +35,6 @@
   },
   "strapi": {
     "uuid": "2b3ea10e-4931-4454-91af-310464ff9f2f"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }
