@@ -9,6 +9,10 @@
       display: grid;
       grid-template-columns: repeat(9, 1fr);
       gap: 2rem;
+      @include respond(phone) {
+        // width < 600?
+        grid-template-columns: repeat(3, 1fr);
+      }
 
       & .content-items__card {
         grid-column: span 3;

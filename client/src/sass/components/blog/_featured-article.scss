@@ -5,9 +5,16 @@
   width: 100%;
   margin-bottom: 10rem;
   margin-top: 6rem;
+  @include respond(phone) {
+    flex-direction: column-reverse;
+    margin-top: 0;
+  }
 
   &__info {
     width: 49%;
+    @include respond(phone) {
+      width: 95%;
+    }
 
     & .copy {
       margin-top: 4rem;
@@ -20,5 +27,9 @@
     height: 450px;
     object-fit: cover;
     border-radius: 4rem;
+    @include respond(phone) {
+      width: 100%;
+    }
   }
+  
 }
