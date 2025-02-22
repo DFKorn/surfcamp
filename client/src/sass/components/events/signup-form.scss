@@ -2,6 +2,12 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 6rem;
+  @include respond(phone) {
+    // width < 600?
+    flex-direction: column;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 
   &__headline {
     margin-bottom: 3rem;
@@ -9,6 +15,10 @@
 
   &__info {
     width: 49%;
+    @include respond(phone) {
+      // width < 600?
+      width: 95%;
+    }
 
     & .copy:not(:last-of-type) {
       margin-bottom: 1.6rem;
@@ -17,6 +27,10 @@
 
   &__form {
     width: 45%;
+    @include respond(phone) {
+      // width < 600?
+      width: 95%;
+    }
 
     & .input {
       width: 100%;
