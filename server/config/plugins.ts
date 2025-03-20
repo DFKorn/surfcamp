@@ -10,3 +10,8 @@ module.exports = ({ env }) => ({
       },
     },
 });
+
+
+// config for local devlopment
+
+// export default () => ({});
