@@ -11,7 +11,7 @@ Surf Camp Website
 
 ### Backend
 - Strapi CMS
-- PostgreSQL
+- PostgreSQL (Render database)
 
 ### Deployment
 - Vercel (Frontend)
